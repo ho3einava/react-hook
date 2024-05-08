@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'sahel';
+    src: url(../font/Sahel-FD.woff);
+}
+.form{
+    width: 800px;
+    height: auto;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 2rem;
+    background-color: #003049;
+    color: #fff;
+    gap: 2rem;
+
+}
+.textField{
+    font-family: 'sahel';
+    width: 400px;
+    height: 45px;
+}
+.label{
+    font-family: "sahel";
+    font-size: 1.5rem;
+}
+.inputField{
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.error{
+    color: red;
+    font-family: 'sahel';
+    font-size: 12px;
+}
+.button{
+    width: 500px;
+    height: 45px;
+    font-family: 'sahel';
+}
