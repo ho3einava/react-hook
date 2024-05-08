@@ -15,7 +15,7 @@ export default function Provinces({ onProvinceSelect }) {
 
   return (
     <div>
-      <select onClick={handlechange} className={style.select}>
+      <select onClick={handlechange} className={style.selectCity}>
         {province.map((state) => (
           <option key={state.id} value={state.id}>
             {state.name}

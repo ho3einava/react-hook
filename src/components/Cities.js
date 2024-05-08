@@ -13,7 +13,7 @@ export default function Cities({ provinceId }) {
 
   return (
     <div>
-      <select className={style.select}>
+      <select className={style.selectCity}>
         {filterCities.map((city) => (
           <option key={city.id} value={city.id}>
             {city.name}
