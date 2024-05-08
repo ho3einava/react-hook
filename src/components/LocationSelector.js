@@ -10,7 +10,7 @@ export default function LocationSelector() {
 
   return (
     <div>
-      <Provinces  onProvinceSelect={handleProvinceSelected} />
+      <Provinces onProvinceSelect={handleProvinceSelected} />
       <Cities provinceId={selectedProvince} />
     </div>
   );
