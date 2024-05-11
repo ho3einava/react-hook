@@ -11,15 +11,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import LocationSelector from "./LocationSelector";
 
+const phoneNumberRegex = /^[\u06F0][\u06F0-\u06F9]{3}[\u06F0-\u06F9]{3}[\u06F0-\u06F9]{4}/
+const nationalCodeRegex = /^\\d{10}$/
 export default function UserForm() {
   const schema = z.object({
     name: z.string().min(2).max(10),
     family: z.string().min(2).max(10),
-    nationalCode: z.string().max(10),
-    phoneNumber: z.string().max(11),
-    brithday: z.string(),
-  });
+    nationalCode: z.string().regex(nationalCodeRegex),
+    phoneNumber: z.string().regex(phoneNumberRegex),
+    brithday: z.string().date(),
+    gender : z.string().array(),
+    favourite : z.string().array(),
+    province : z.string(),
+    city:z.string()
 
+  });
   const {
     register,
     handleSubmit,
