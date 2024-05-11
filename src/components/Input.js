@@ -1,3 +1,4 @@
+
 import style from "../assets/css/form.module.css";
 
 export default function Input({
@@ -7,6 +8,7 @@ export default function Input({
   register,
   error,
   type,
+  
 }) {
   return (
     <div>
@@ -14,7 +16,7 @@ export default function Input({
         className={style.textField}
         type={type}
         name={name}
-        {...register(name, { required: true })}
+        {...register(name,{ required: true  })}
         id={id}
         placeholder={placeholder}
       />

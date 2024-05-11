@@ -4,8 +4,9 @@ import { useState } from "react";
 import style from '../assets/css/form.module.css'
 export default function LocationSelector() {
   const [selectedProvince, setSelectedProvince] = useState("");
+
   const handleProvinceSelected = (provinceId) => {
-    setSelectedProvince(provinceId);
+    setSelectedProvince(provinceId +1);
   };
 
   return (

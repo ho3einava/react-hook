@@ -17,7 +17,7 @@ export default function UserForm() {
     family: z.string().min(2).max(10),
     nationalCode: z.string().max(10),
     phoneNumber: z.string().max(11),
-    brithday: z.string().min(10).max(29),
+    brithday: z.string(),
   });
 
   const {
@@ -78,15 +78,17 @@ export default function UserForm() {
             name={"phoneNumber"}
             id="phoneNumber"
             placeholder={"شماره همراه"}
+            valueAsnumber={true}
           />
         </div>
 
         <div className={style.inputField}>
           <label id="brithday">تاریخ تولد :</label>
           <Brithday
+            className={style.brithday}
             error={errors}
             register={register}
-            name={"brithday"}
+            dates={"brithday"}
             id="brithday"
             placeholder={"تاریخ تولد"}
           />
