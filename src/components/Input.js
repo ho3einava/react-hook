@@ -8,7 +8,7 @@ export default function Input({
   register,
   error,
   type,
-  
+  valueAsnumber
 }) {
   return (
     <div>
@@ -16,7 +16,7 @@ export default function Input({
         className={style.textField}
         type={type}
         name={name}
-        {...register(name,{ required: true  })}
+        {...register(name, {valueAsNumber : valueAsnumber} , { required: true  })}
         id={id}
         placeholder={placeholder}
       />

@@ -11,20 +11,38 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import LocationSelector from "./LocationSelector";
 
-const phoneNumberRegex = /^[\u06F0][\u06F0-\u06F9]{3}[\u06F0-\u06F9]{3}[\u06F0-\u06F9]{4}/
-const nationalCodeRegex = /^\\d{10}$/
+const phoneNumberRegex =
+  /^[\u06F0][\u06F0-\u06F9]{3}[\u06F0-\u06F9]{3}[\u06F0-\u06F9]{4}/;
+const nationalCodeRegex = /^\\d{10}$/;
 export default function UserForm() {
   const schema = z.object({
-    name: z.string().min(2).max(10),
-    family: z.string().min(2).max(10),
-    nationalCode: z.string().regex(nationalCodeRegex),
-    phoneNumber: z.string().regex(phoneNumberRegex),
-    brithday: z.string().date(),
-    gender : z.string().array(),
-    favourite : z.string().array(),
-    province : z.string(),
-    city:z.string()
-
+    name: z
+      .string({
+        required_error: "Name is required",
+        invalid_type_error: "Name must be a string",
+      })
+      .min(2)
+      .max(10),
+    family: z
+      .string({
+        required_error: "family is required",
+        invalid_type_error: "family must be a string",
+      })
+      .min(2)
+      .max(10),
+    nationalCode: z.string({
+      required_error: "nationalCode is required",
+  invalid_type_error: "nationalCode must be a number",
+    }).regex(nationalCodeRegex),
+    phoneNumber: z.string({
+      required_error: "phoneNumber is required",
+  invalid_type_error: "phoneNumber must be a number",
+    }).regex(phoneNumberRegex),
+    brithday: z.date(),
+    gender: z.string().array(),
+    favourite: z.string().array(),
+    province: z.string(),
+    city: z.string(),
   });
   const {
     register,
@@ -72,6 +90,7 @@ export default function UserForm() {
             name={"nationalCode"}
             id="nationalCode"
             placeholder={"کد ملی"}
+            valueAsnumber={true}
           />
         </div>
 
@@ -143,7 +162,7 @@ export default function UserForm() {
           />
         </div>
 
-        <LocationSelector />
+        <LocationSelector register={register} name={"location"} />
 
         <button className={style.button} type="submit">
           ثبت اطلاعات
