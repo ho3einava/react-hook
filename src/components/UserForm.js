@@ -12,24 +12,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import LocationSelector from "./LocationSelector";
 const formError = new ZodError();
 
-const phoneNumberRegex =
-  /^[\u06F0][\u06F0-\u06F9]{3}[\u06F0-\u06F9]{3}[\u06F0-\u06F9]{4}/;
-const nationalCodeRegex = /^\\d{10}$/;
+const phoneNumberRegex = /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g;
 export default function UserForm() {
   const schema = z.object({
-    name: z.string().min(2 , "name is required").max(10 , "name must be at 10 characters long"),
-    family: z.string().min(2 , "family is reqiured").max(10 ,"name must be at 10 characters long" ),
-    nationalCode: z.string().regex(nationalCodeRegex , "nationalCode is invalid"),
-    phoneNumber: z.string().regex(phoneNumberRegex , "phoneNumber is invalid"),
+    name: z
+      .string()
+      .min(2, "name is required")
+      .max(10, "name must be at 10 characters long"),
+    family: z
+      .string()
+      .min(2, "family is reqiured")
+      .max(10, "name must be at 10 characters long"),
+    nationalCode: z.string().min(10),
+    phoneNumber: z.string().regex(phoneNumberRegex, "phoneNumber is invalid"),
     brithday: z.date(),
     gender: z.string(),
-    favourite: z.string(),
+    favourite: z.array(z.string()),
     province: z.string(),
     city: z.string(),
   });
- 
- 
- 
+
   const {
     register,
     handleSubmit,
@@ -38,15 +40,8 @@ export default function UserForm() {
   const onSubmit = (logData) => {
     console.log(logData);
   };
-  
- 
-if(!schema.success){
-  console.log(formError.errors)
-}
 
-   
-
-
+  console.log(errors);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
@@ -54,17 +49,9 @@ if(!schema.success){
 
         <div className={style.inputField}>
           <label id="name">نام : </label>
-          <Input
-            register={register}
-            error={errors}
-            type={"text"}
-            name="name"
-            id="name"
-            placeholder={"نام"}
-          />
-          
+          <input {...register("name")} type="text" placeholder="نام" />
         </div>
-              
+
         <div className={style.inputField}>
           <label id="family">نام خانوادگی : </label>
           <Input
@@ -82,11 +69,9 @@ if(!schema.success){
           <Input
             register={register}
             error={errors}
-            type={"number"}
             name={"nationalCode"}
             id="nationalCode"
             placeholder={"کد ملی"}
-            valueAsnumber={true}
           />
         </div>
 
@@ -95,11 +80,9 @@ if(!schema.success){
           <Input
             register={register}
             error={errors}
-            type={"number"}
             name="phoneNumber"
             id="phoneNumber"
             placeholder={"شماره همراه"}
-            valueAsnumber={true}
           />
         </div>
 
@@ -115,7 +98,7 @@ if(!schema.success){
           />
         </div>
 
-        <div className={style.inputField}>
+        {/* <div className={style.inputField}>
           <label>جنسیت : </label>
           <Gender
             label={"مرد"}
@@ -131,7 +114,7 @@ if(!schema.success){
             name={"gender"}
             id={"fmale"}
           />
-        </div>
+        </div> */}
 
         <div className={style.inputField}>
           <label>علاقه مندی ها :</label>
@@ -158,7 +141,7 @@ if(!schema.success){
           />
         </div>
 
-        <LocationSelector register={register} name={"location"} />
+        <LocationSelector register={register} />
 
         <button className={style.button} type="submit">
           ثبت اطلاعات

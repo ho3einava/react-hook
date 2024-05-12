@@ -1,26 +1,24 @@
-import { useEffect, useState } from "react";
-
 import provinces from "../jsonData/provinces.json";
 import style from "../assets/css/form.module.css";
 
-export default function Provinces({ onProvinceSelect ,register , name }) {
-  const [province, setProvince] = useState([]);
-
-  useEffect(() => {
-    setProvince(provinces);
-  }, []);
-  const handlechange = (e) => {
-    onProvinceSelect(e.target.selectedIndex);
-  };
-
+export default function Provinces({ onProvinceSelect, register, name }) {
   return (
     <div>
-      <select onClick={handlechange} className={style.selectCity} {...register("name")} name={name}>
-        {province.map((state) => (
-          <option key={state.id} value={state.id} selected={state.id[1]}>
-            {state.name}
-          </option>
-        ))}
+      <select
+        className={style.selectCity}
+        {...register(name, {
+          onChange: (e) => {
+            onProvinceSelect(e.target.value);
+          },
+        })}
+      >
+        {provinces.map((state) => {
+          return (
+            <option key={state.id} value={state.id}>
+              {state.name}
+            </option>
+          );
+        })}
       </select>
     </div>
   );
