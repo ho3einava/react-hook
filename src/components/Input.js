@@ -16,7 +16,7 @@ export default function Input({
         className={style.textField}
         type={type}
         name={name}
-        {...register(name, {valueAsNumber : valueAsnumber} , { required: true  })}
+        {...register(name, {valueAsNumber : valueAsnumber} , {required : true})}
         id={id}
         placeholder={placeholder}
       />

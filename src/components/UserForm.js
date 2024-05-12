@@ -6,44 +6,30 @@ import Brithday from "./‌Brithday";
 import Gender from "./Gender";
 import Favourite from "./Favourite";
 
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LocationSelector from "./LocationSelector";
+const formError = new ZodError();
 
 const phoneNumberRegex =
   /^[\u06F0][\u06F0-\u06F9]{3}[\u06F0-\u06F9]{3}[\u06F0-\u06F9]{4}/;
 const nationalCodeRegex = /^\\d{10}$/;
 export default function UserForm() {
   const schema = z.object({
-    name: z
-      .string({
-        required_error: "Name is required",
-        invalid_type_error: "Name must be a string",
-      })
-      .min(2)
-      .max(10),
-    family: z
-      .string({
-        required_error: "family is required",
-        invalid_type_error: "family must be a string",
-      })
-      .min(2)
-      .max(10),
-    nationalCode: z.string({
-      required_error: "nationalCode is required",
-  invalid_type_error: "nationalCode must be a number",
-    }).regex(nationalCodeRegex),
-    phoneNumber: z.string({
-      required_error: "phoneNumber is required",
-  invalid_type_error: "phoneNumber must be a number",
-    }).regex(phoneNumberRegex),
+    name: z.string().min(2 , "name is required").max(10 , "name must be at 10 characters long"),
+    family: z.string().min(2 , "family is reqiured").max(10 ,"name must be at 10 characters long" ),
+    nationalCode: z.string().regex(nationalCodeRegex , "nationalCode is invalid"),
+    phoneNumber: z.string().regex(phoneNumberRegex , "phoneNumber is invalid"),
     brithday: z.date(),
-    gender: z.string().array(),
-    favourite: z.string().array(),
+    gender: z.string(),
+    favourite: z.string(),
     province: z.string(),
     city: z.string(),
   });
+ 
+ 
+ 
   const {
     register,
     handleSubmit,
@@ -52,6 +38,15 @@ export default function UserForm() {
   const onSubmit = (logData) => {
     console.log(logData);
   };
+  
+ 
+if(!schema.success){
+  console.log(formError.errors)
+}
+
+   
+
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
@@ -67,8 +62,9 @@ export default function UserForm() {
             id="name"
             placeholder={"نام"}
           />
+          
         </div>
-
+              
         <div className={style.inputField}>
           <label id="family">نام خانوادگی : </label>
           <Input
@@ -113,7 +109,7 @@ export default function UserForm() {
             className={style.brithday}
             error={errors}
             register={register}
-            dates={"brithday"}
+            name={"brithday"}
             id="brithday"
             placeholder={"تاریخ تولد"}
           />
