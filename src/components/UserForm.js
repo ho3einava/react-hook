@@ -58,7 +58,7 @@ if(!schema.success){
             register={register}
             error={errors}
             type={"text"}
-            name={"name"}
+            name="name"
             id="name"
             placeholder={"نام"}
           />
@@ -96,7 +96,7 @@ if(!schema.success){
             register={register}
             error={errors}
             type={"number"}
-            name={"phoneNumber"}
+            name="phoneNumber"
             id="phoneNumber"
             placeholder={"شماره همراه"}
             valueAsnumber={true}
