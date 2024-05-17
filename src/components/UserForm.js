@@ -6,11 +6,11 @@ import Brithday from "./‌Brithday";
 import Gender from "./Gender";
 import Favourite from "./Favourite";
 
-import { ZodError, z } from "zod";
+import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import LocationSelector from "./LocationSelector";
-const formError = new ZodError();
+
 
 const phoneNumberRegex = /((0?9)|(\+?989))\d{2}\W?\d{3}\W?\d{4}/g;
 export default function UserForm() {
@@ -25,8 +25,8 @@ export default function UserForm() {
       .max(10, "name must be at 10 characters long"),
     nationalCode: z.string().min(10),
     phoneNumber: z.string().regex(phoneNumberRegex, "phoneNumber is invalid"),
-    brithday: z.date(),
-    gender: z.string(),
+    
+    
     favourite: z.array(z.string()),
     province: z.string(),
     city: z.string(),
@@ -98,23 +98,23 @@ export default function UserForm() {
           />
         </div>
 
-        {/* <div className={style.inputField}>
+         <div className={style.inputField}>
           <label>جنسیت : </label>
           <Gender
             label={"مرد"}
-            value={"Male"}
+            value="Male"
             register={register}
             name={"gender"}
             id={"male"}
           />
           <Gender
             label={"زن"}
-            value={"Fmale"}
+            value="Fmale"
             register={register}
             name={"gender"}
             id={"fmale"}
           />
-        </div> */}
+        </div>
 
         <div className={style.inputField}>
           <label>علاقه مندی ها :</label>

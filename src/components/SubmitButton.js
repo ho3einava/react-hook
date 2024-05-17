@@ -14,7 +14,7 @@ function SubmitButton({ children, ...props }, ref) {
   function submitForm({persian}) {
         
     console.log(JSON.stringify({persian}));
-    debugger
+    
   }
 }
 
